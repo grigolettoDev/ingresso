@@ -14,16 +14,18 @@ const tipoPista = "pista";
 
 function comprar (){
 
-    //Pegar valores
     let tipoIngresso = pegaValores("tipo-ingresso");
     let qtdIngresso = parseInt(pegaValores("qtd"));
     console.log(tipoIngresso);
     console.log(qtdIngresso);
     subtraindoTotal(tipoIngresso,qtdIngresso);
-    adicionaValores();
-    //Subtrair valores
-    //Verificar se foram esgotados
+    let verificacaoEsgotou = esgotou();
 
+    if (verificacaoEsgotou=="Sim"){
+        console.log("Esgotou");
+    }else{
+        adicionaValores();
+    }
 }
 
 function pegaValores(id){
@@ -52,4 +54,26 @@ function adicionaValores(){
     elementoQtdPista.textContent = qtdPista;
     elementoQtdSuperior.textContent = qtdSuperior;
 
+}
+
+function esgotou(){
+    let elementoSegundoTitulo = document.querySelector("h2");
+    let esgotouLimite = "Não";
+    if(qtdInferior<0){
+        elementoSegundoTitulo.textContent = `Esgotou limite ${tipoInferior}`;
+        esgotouLimite = "Sim";
+        qtdInferior = 0;
+    } else if (qtdSuperior<0){
+        elementoSegundoTitulo.textContent = `Esgotou limite ${tipoSuperior}`;
+        esgotouLimite = "Sim";
+        qtdSuperior=0;
+    } else if (qtdPista<0){
+        elementoSegundoTitulo.textContent = `Esgotou limite ${tipoPista}`;
+        esgotouLimite = "Sim";
+        qtdPista = 0;
+    } else {
+        esgotouLimite = "Não";
+    }
+
+    return esgotouLimite;
 }
