@@ -18,9 +18,12 @@ function comprar (){
 
     let tipoIngresso = pegaValores("tipo-ingresso");
     let qtdIngresso = parseInt(pegaValores("qtd"));
-    console.log(tipoIngresso);
-    console.log(qtdIngresso);
-    subtraindoTotal(tipoIngresso,qtdIngresso);
+    if(qtdIngresso<=0){
+        document.querySelector("h1").innerHTML = ` <h1>Insira valor válido</h1>`;
+    } else{
+        subtraindoTotal(tipoIngresso,qtdIngresso);
+        document.querySelector("h1").innerHTML = ` <h1>Compre seu <span>ingresso</span></h1>`;
+    }
 }
 
 function pegaValores(id){
@@ -34,22 +37,22 @@ function subtraindoTotal(tipo,qtd){
 
     if(tipo==tipoInferior){
         if ((qtdInferior - qtd)>=0){
-        qtdInferior = qtdInferior - qtd;
-        adicionaValores();
+            qtdInferior = qtdInferior - qtd;
+            adicionaValores();
          }  else{
             esgotou();
          }
     } else if (tipo==tipoSuperior){
         if ((qtdSuperior - qtd)>=0){
-        qtdSuperior = qtdSuperior - qtd;
-        adicionaValores();
+            qtdSuperior = qtdSuperior - qtd;
+            adicionaValores();
          } else{
             esgotou();
          }
     } else if (tipo==tipoPista){
         if ((qtdPista-qtd)>=0){
-        qtdPista = qtdPista - qtd;
-        adicionaValores();
+            qtdPista = qtdPista - qtd;
+            adicionaValores();
          } else{
             esgotou();
          }
@@ -64,7 +67,6 @@ function adicionaValores(){
     elementoQtdPista.textContent = qtdPista;
     elementoQtdSuperior.textContent = qtdSuperior;
     elementoSegundoTitulo.textContent = "Compra realizada com sucesso";
-
 }
 
 function esgotou(){
