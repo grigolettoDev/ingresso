@@ -12,6 +12,8 @@ const tipoInferior = "inferior";
 const tipoSuperior = "superior";
 const tipoPista = "pista";
 
+let elementoSegundoTitulo = document.querySelector("h2");
+
 function comprar (){
 
     let tipoIngresso = pegaValores("tipo-ingresso");
@@ -19,13 +21,6 @@ function comprar (){
     console.log(tipoIngresso);
     console.log(qtdIngresso);
     subtraindoTotal(tipoIngresso,qtdIngresso);
-    let verificacaoEsgotou = esgotou();
-
-    if (verificacaoEsgotou=="Sim"){
-        console.log("Esgotou");
-    }else{
-        adicionaValores();
-    }
 }
 
 function pegaValores(id){
@@ -38,11 +33,26 @@ function pegaValores(id){
 function subtraindoTotal(tipo,qtd){
 
     if(tipo==tipoInferior){
+        if ((qtdInferior - qtd)>=0){
         qtdInferior = qtdInferior - qtd;
+        adicionaValores();
+         }  else{
+            esgotou();
+         }
     } else if (tipo==tipoSuperior){
+        if ((qtdSuperior - qtd)>=0){
         qtdSuperior = qtdSuperior - qtd;
+        adicionaValores();
+         } else{
+            esgotou();
+         }
     } else if (tipo==tipoPista){
+        if ((qtdPista-qtd)>=0){
         qtdPista = qtdPista - qtd;
+        adicionaValores();
+         } else{
+            esgotou();
+         }
     } else{
         console.log("erro");
     }
@@ -53,27 +63,11 @@ function adicionaValores(){
     elementoQtdInferior.textContent = qtdInferior;
     elementoQtdPista.textContent = qtdPista;
     elementoQtdSuperior.textContent = qtdSuperior;
+    elementoSegundoTitulo.textContent = "Compra realizada com sucesso";
 
 }
 
 function esgotou(){
-    let elementoSegundoTitulo = document.querySelector("h2");
-    let esgotouLimite = "Não";
-    if(qtdInferior<0){
-        elementoSegundoTitulo.textContent = `Esgotou limite ${tipoInferior}`;
-        esgotouLimite = "Sim";
-        qtdInferior = 0;
-    } else if (qtdSuperior<0){
-        elementoSegundoTitulo.textContent = `Esgotou limite ${tipoSuperior}`;
-        esgotouLimite = "Sim";
-        qtdSuperior=0;
-    } else if (qtdPista<0){
-        elementoSegundoTitulo.textContent = `Esgotou limite ${tipoPista}`;
-        esgotouLimite = "Sim";
-        qtdPista = 0;
-    } else {
-        esgotouLimite = "Não";
-    }
-
-    return esgotouLimite;
+   
+     elementoSegundoTitulo.textContent = `Não é possível essa Qtde`;
 }
